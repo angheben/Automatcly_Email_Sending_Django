@@ -22,12 +22,9 @@ class Product(Base):
     image = StdImageField(name='Image', upload_to='Products', variations={'thumb': (124, 124)})
     slug = models.SlugField(name='Slug', max_length=100, blank=True, editable=False)
 
-    def __str__(self):
-        return self.name
-
 
 def product_pre_save(signal, instance, sender, **kwargs):
-    instance.slug = slugify(instance.name)
+    instance.slug = slugify(instance.Name)
 
 
 signals.pre_save.connect(product_pre_save, sender=Product)
